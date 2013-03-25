@@ -1,9 +1,17 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
+
   factory :product do
-    name "MyString"
-    description "MyText"
-    price_in_cents 1
+    name "Shoes"
+    description "Nice patent white leather shoes"
+    price_in_cents 9900
   end
+
+  factory :cheap_product, :class => Product do
+    name "Book"
+    description "Has pictures"
+    price_in_cents 99
+  end
+
 end
