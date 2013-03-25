@@ -21,16 +21,38 @@ class ProductTest < ActiveSupport::TestCase
     refute @p.valid?
   end
 
-  test "price_in_cents must be a integer" do 
-    @p.price_in_cents = 1.5
-    assert !@p.valid?
+  test "price_in_dollars accepts a number" do 
+    @p.price_in_dollars = 1.5
+    assert @p.valid?
   end
 
-  test "must have a price_in_cents" do 
-    @p.price_in_cents = nil
+  test "price_in_dollars requires a number" do 
+    @p.price_in_cents = nil # since the factory creates a product with a price
+
+    @p.price_in_dollars = "abc"
     refute @p.valid?
   end
 
+  test "must have a price_in_dollars" do
+    @p.price_in_cents = nil # since the factory creates a product with a price
 
+    @p.price_in_dollars = nil
+    refute @p.valid?
+  end
+
+  test "updates cents value from price_in_dollars correctly" do
+    @p.price_in_dollars = 10.15
+    assert_equal 1015, @p.price_in_cents
+  end
+
+  test "converts price_in_dollars to cents correctly" do
+    @p.price_in_cents = 999
+    assert_equal 9.99, @p.price_in_dollars
+  end
+
+  test "dollar conversion is not performed for empty/blank cents value" do
+    @p.price_in_cents = nil
+    assert_nil @p.price_in_dollars
+  end
 
 end
