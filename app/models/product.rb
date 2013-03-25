@@ -10,8 +10,8 @@ class Product < ActiveRecord::Base
 
   #product.price_in_dollars = 500.50
   def price_in_dollars=(amount)
-    #amount #=> 6.42
-    self.price_in_cents = (amount * 100).to_i
+    # Example amount: 6.42 * 100 = 642 cents
+    self.price_in_cents = (amount.to_f * 100.00).to_i
   end
 
 end
