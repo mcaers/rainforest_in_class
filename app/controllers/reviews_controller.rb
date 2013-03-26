@@ -16,12 +16,21 @@ class ReviewsController < ApplicationController
 
   # POST /product/:id/reviews
   def create
-    @review = Review.new(params[:review])
+    # @review = Review.new(
+    #   :comment    => params[:review][:comment], 
+    #   :product_id => @product.id, 
+    #   :user_id    => current_user.id
+    # )
+    @review = @product.reviews.build(
+      :comment => params[:review][:comment],
+      :user_id => current_user.id
+    )
 
     if @review.save
-      redirect_to @review, notice: 'Review was successfully created.'
+      redirect_to @product, notice: 'Review was successfully created.'
     else
-      render action: "../products/show"
+      # render action: "../products/show" # Hacky, not nice
+      render "products/show"
     end
   end
 
