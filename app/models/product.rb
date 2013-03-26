@@ -4,6 +4,8 @@ class Product < ActiveRecord::Base
   validates :description, :name, :presence => true
   validates :price_in_dollars, :numericality => true
 
+  has_many :reviews
+
   # Since we are validating price_in_dollars already, one approach is to not validate
   # price_in_cents and make sure price_in_dollars' getter/setter are well tested
   # validates :price_in_cents, :numericality => {:only_integer => true}
