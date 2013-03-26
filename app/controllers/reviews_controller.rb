@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_filter :load_product
+
   # GET /reviews
   # GET /reviews.json
   def index
@@ -12,15 +14,14 @@ class ReviewsController < ApplicationController
 
   end
 
-  # POST /reviews
-  # POST /reviews.json
+  # POST /product/:id/reviews
   def create
     @review = Review.new(params[:review])
 
     if @review.save
       redirect_to @review, notice: 'Review was successfully created.'
     else
-      render action: "new"
+      render action: "../products/show"
     end
   end
 
@@ -34,5 +35,10 @@ class ReviewsController < ApplicationController
       format.html { redirect_to reviews_url }
       format.json { head :no_content }
     end
+  end
+
+  # This method runs before every single action in the controller.
+  def load_product
+    @product = Product.find(params[:product_id])
   end
 end
