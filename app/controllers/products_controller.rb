@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
+    @review  = Review.new
     @product = Product.find(params[:id])
   end
 
