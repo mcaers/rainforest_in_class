@@ -12,8 +12,8 @@
 
 <% @reviews.each do |review| %>
   <tr>
-    <td><%= review.user %></td>
-    <td><%= review.product %></td>
+    <td><%= review.user.name %></td>
+    <td><%= review.product.name %></td>
     <td><%= review.comment %></td>
     <td><%= link_to 'Show', review %></td>
     <td><%= link_to 'Edit', edit_review_path(review) %></td>
